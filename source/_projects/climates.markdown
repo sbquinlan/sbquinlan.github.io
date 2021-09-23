@@ -1,0 +1,6 @@
+---
+name: Similar Climates
+url: http://www.google.com/
+category: climates
+---
+Climates are fairly intuitive at a high-level. If I asked you to identify an arid climate, it's fair to assume you'd be able to come up with some examples. Similarly, comparing two specific and sufficiently different locales, say London and San Francisco, seems reasonable on the surface. *"London is generally wetter and colder than San Francisco."* But, these intuitive answers become less reliable in the face of specifics. *"SF is in a cloud nearly all the time. Aren't clouds cold and wet?"* I wanted an interactive tool to answer these comparisons more empirically.

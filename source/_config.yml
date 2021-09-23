@@ -1,0 +1,19 @@
+title: Sean Quinlan
+repository: sbquinlan/sbquinlan.github.io
+
+plugins:
+  - jekyll-feed
+  - jekyll-postcss
+
+collections:
+  - projects
+
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+sass:
+  style: compressed
+encoding: utf-8
