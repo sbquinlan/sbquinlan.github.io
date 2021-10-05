@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "hugo": "docker run --rm -it -v $(pwd):/src klakegg/hugo:latest-ext "
+    "hugo": "docker run --rm -it -v $(pwd):/src -p 1313:1313 klakegg/hugo:latest-ext "
   },
   "repository": {
     "type": "git",
@@ -17,9 +17,12 @@
   },
   "homepage": "https://github.com/sbquinlan/sbquinlan.github.io#readme",
   "devDependencies": {
+    "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^10.3.7",
     "postcss": "^8.3.9",
     "postcss-cli": "^9.0.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-recommended": "^5.0.0",
     "tailwindcss": "^2.2.16"
   }
 }
