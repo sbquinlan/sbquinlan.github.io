@@ -2,4 +2,4 @@ source
 .env
 Dockerfile
 node_modules
-Gemfile.lock
+_site

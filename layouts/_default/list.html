@@ -1,0 +1,9 @@
+{{ define "main" }}
+  <article itemscope itemtype="https://schema.org/CollectionPage">
+    <h2 class="post-title" itemprop="headline">{{ .Page.Title }}</h2>
+    <p class="post-content" itemprop="text">
+      {{ .Page.Content }}
+    </p>
+    {{ partial "postlist" . }}
+  </article>
+{{ end }}

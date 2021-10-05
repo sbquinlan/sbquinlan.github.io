@@ -1,0 +1,12 @@
+<ul>
+{{ range .Pages }}
+  <li>
+    <a rel="bookmark" itemprop="relatedLink" href="{{ .Permalink }}">
+      <h3 itemprop="name">{{ .Title }}</h3>
+    </a>
+    {{ if .IsSection }}
+      <p itemprop="abstract">{{ .Summary }}</p>
+    {{ end }}
+  </li>
+{{ end }}
+</ul>

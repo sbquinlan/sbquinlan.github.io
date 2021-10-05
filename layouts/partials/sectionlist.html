@@ -1,0 +1,21 @@
+{{ range .Pages }}
+  <h2>{{ .Title }}</h2>
+  <!-- no summary for this level -->
+  <ul>
+  {{ range .Pages }}
+    {{ if .IsSection }}
+    <li itemscope itemtype="https://schema.org/CreativeWork">
+      <a itemprop="url" href="{{ .Permalink }}">
+        <h3 itemprop="name">{{ .Title }}</h3>
+      </a>
+      <p itemprop="abstract">{{ .Summary }}</p>
+      <section>
+        {{ partial "postlist" . }}
+      </section>
+    {{ else }}
+      {{ partial "postlist" . }}
+    {{ end }}
+    </li>
+  {{ end }}
+  </ul>
+{{ end }}

@@ -1,16 +1,15 @@
 ---
-layout:	post
 title:	"I barely know PCA and t-SNE"
-date:	Sep 22, 2021
+date: 2021-09-22
 ---
 
   Emphasis on *barely.* My goal here is primarily to develop some understanding of what these are by *seeing* what they do. The goal of documenting the journey is to provide a breadcrumb trail of sorts for me to follow in the future when I forget what these are and what they do. Keep in mind that I’m not an expert of this subject matter (but I link to those who are).
 
-#### How’d I get here?
+## How’d I get here?
 
 I’m embarking on a slightly larger project to find similar climate locales by clustering geospatial climate data. In both [the paper on a modern Köppen-Geiger map](http://www.gloh2o.org/koppen/) and [the paper from ArcGis’s world climate regions](https://storymaps.arcgis.com/stories/61a5d4e9494f46c2b520a984b2398f3b), PCA is discussed as an obvious first step before clustering geospatial data.
 
-#### What does PCA do?
+## What does PCA do?
 
 Scikit-Learn’s (SKLearn) [documentation](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html) is fantastic at unblocking me if I just need the code to be unblocked:
 
@@ -29,11 +28,11 @@ print(pca.singular_values_)
 
 Unfortunately, I need a bit more. [Dr Ravi Kalia’s series](https://medium.com/@ravikalia/what-is-principal-components-analysis-a92b939951e5) provides a wonderful overview of PCA. In my own words, Principal Component Analysis strives to preserve the full variance of a dataset but with reduced dimensionality. The result of PCA is eigenvectors describing a change of basis on the dataset. Before I embarrass myself by trying describe something I know next to nothing about, I need to try a bit of it.
 
-#### Messing around with PCA
+## Messing around with PCA
 
 First, I just want to prove that PCA does what it says it does. The hypothesis here being that if I give some set of data with a useless dimension, PCA should be able to identify that the useless dimension provides little variance. I’m not entirely sure what a “useless” dimension is here, but I have two guesses: (1) an independent features of the dataset that is constant and (2) a duplicate feature. 
 
-#### PCA Round 1
+## PCA Round 1
 
 ```python
 import numpy as np  
@@ -64,7 +63,7 @@ print(pca.components_)
 I created a dataset by hand with a constant Z (useless feature in the dataset). I graph the data and then run PCA from SKLearn on it. 
 
 
-![](/assets/1*96f79fkk_B3hT7DwDEY1qw.png)Plot of round 1 dataset
+![](1*96f79fkk_B3hT7DwDEY1qw.png)Plot of round 1 dataset
 
 ```python
 # explained variance ratio for each feature  
@@ -79,7 +78,7 @@ Well Z is indeed useless. That’s good news, but I learned a few things in doin
 * I don’t need to handroll example datasets ([See make_collection from SKLearn](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html))
 * PCA doesn’t center or scale your features for you and that’s important.
 
-#### PCA Round 1 v2
+## PCA Round 1 v2
 
 ```python
 N = 20  
@@ -101,7 +100,7 @@ print(pca.components_)
 
 So now I’m calling [scale()](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.scale.html) to [mean-center and scale the features](https://medium.com/@ravikalia/simple-pca-implementations-7edb130fb01b) which definitely changes things and it seems more accurate? I feel like this could also be due to the random distribution of the samples I’m creating. Either way, normalizing the data intuitively makes sense to me.
 
-![Scaled and centered dataset](/assets/1*K5dyvtBHL4clSjGLywahYw.png "Scaled and centered dataset")
+![Scaled and centered dataset](1*K5dyvtBHL4clSjGLywahYw.png "Scaled and centered dataset")
 
 ```python
 # explained variance ratio split between X and Y  
@@ -112,7 +111,7 @@ So now I’m calling [scale()](https://scikit-learn.org/stable/modules/generated
  [ 0. 0. 1. ]]
 ```
 
-#### PCA Round 2
+## PCA Round 2
 
 Alright, so clearly a constant is useless information and PCA will identify that even if I don’t preprocess the samples correctly. In Round 2 I’m going to try a redundant feature. A redundant feature in my mind is a feature that’s fully dependent on another feature. Also going to use [make_classification()](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html) to create the dataset. 
 
@@ -139,7 +138,7 @@ print(pca.explained_variance_ratio_)
 print(pca.components_)  
 ```
 
-![](/assets/1*vkyrtNtTFkZ61jXA0It6cw.png)
+![](1*vkyrtNtTFkZ61jXA0It6cw.png)
 Uncentered/scaled dataset from make_classification
 
 ```python
@@ -150,10 +149,10 @@ Uncentered/scaled dataset from make_classification
  [-0.70710678 0. 0.70710678]]  
 ```
 
-![](/assets/1*WSPjQHEZ7BTHfkw5cfNqtg.png)
+![](1*WSPjQHEZ7BTHfkw5cfNqtg.png)
 Adding the eigenvectors to the scaled and centered dataset
 
-#### PCA Summary
+## PCA Summary
 
 Alright, I wasn’t hoping to reach a deep mathematical understanding of what I’m doing here, just a cursory understanding of how to use PCA and what it does. It clearly identifies the features with variance in the dataset when I create datasets with meaningless or redundant features. Cool that’s useful.
 
@@ -169,11 +168,11 @@ I don’t however, pretend to know the ins and outs of variance/covariance nor d
 
 Now, I actually have no idea what this is. Unfortunately the full name, t-distributed stochastic neighbor embedding, doesn’t help much either. Have a look at[ the wikipedia page](https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding). It kind of helps? High dimensional to low dimensional being the theme here.
 
-#### How’d I get here?
+## How’d I get here?
 
 In learning about PCA, I routinely stumbled on data science blog posts that would compare them. The comparison, however, was mostly around visualizing data rather than as a preprocessing for analysis. It seems that PCA was also used to take highly dimensional data and reduce those dimensions for visualization. In this way it seems that PCA does not offer great visualizations but t-SNE does. t-SNE is included in SKLearn so I might as well dabble around with that too.
 
-#### Messing around with t-SNE
+## Messing around with t-SNE
 
 I’m going to generate a clustered dataset with alot of features, then use PCA to filter the noise, and finally visualize my data with t-SNE.
 
@@ -211,7 +210,7 @@ with plt.ioff():
   plt.show()  
 ```
 
-![](/assets/1*rKaE4BNqypCRiA4AtC4cXg.png)
+![](1*rKaE4BNqypCRiA4AtC4cXg.png)
 Not really seeing the clusters here
 
 At first attempt, this seems quite disappointing. Colors aside, there isn’t much clustering of data happening here. I think the seed data from make_classification might be the issue here? Maybe it’s too random?
@@ -230,11 +229,11 @@ M, labels = make_classification(
 
 Adjusting the parameters for the classification dataset didn’t improve clustering much.
 
-![](/assets/1*cZtraFZe5a09byMDB0N1ag.png)
+![](1*cZtraFZe5a09byMDB0N1ag.png)
 
 After repeated attempts of increasing the PCA filter and reducing noise in the dataset’s initialization, I reached something that looks like clustering, though only with colored labels.
 
-![](/assets/1*KbRdLVexm5I9yi9uQt8B0g.png)
+![](1*KbRdLVexm5I9yi9uQt8B0g.png)
 
 A final attempt with more tuning and more classes in the dataset.
 
@@ -256,6 +255,6 @@ model = TSNE(perplexity=20, learning_rate=250, square_distances=True)
 model_data = model.fit_transform(reduced_M)  
 ```
 
-![](/assets/1*j1zM9VrImz67VnGg4zfW0Q.png)Enough for now.
+![](1*j1zM9VrImz67VnGg4zfW0Q.png)Enough for now.
 
   

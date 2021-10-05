@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en-us">
+  <head itemscope itemtype="https://schema.org/WebSite">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{{ .Page.Title }}</title>
+    <meta name="author" content="{{ .Site.Params.Author }}"/>
+    <meta name="description" content="{{ default .Page.Summary .Page.Description }}"/>
+
+    {{ partial "schema_meta" . }}
+    {{ partial "fb_meta" . }}
+    {{ partial "twitter_meta" . }}
+
+    <link rel="canonical" href="{{ .Page.Permalink }}" />
+
+    {{ $styles := resources.Get "css/main.css" | resources.PostCSS }}
+    {{ if .Site.IsServer }}
+      <link rel="stylesheet" href="{{ $styles.RelPermalink }}"/>
+    {{ else }}
+      {{ $styles := $styles | minify | fingerprint | resources.PostProcess }}
+      <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}"/>
+    {{ end }}
+  </head>
+  <body itemscope itemtype="https://schema.org/WebPage">
+    <header itemscope itemtype="https://schema.org/WPHeader">
+      <a class="logo" rel="bookmark" itemprop="url" href="{{ .Site.BaseURL }}">
+        <img class="mark" itemprop="image" src="" title="{{ .Site.Title }}" alt="logo" />
+        <p class="title" itemprop="headline">{{ .Site.Title }}</p>
+      </a>
+      {{ partial "social" . }}
+    </header>
+
+    <main>
+      {{ block "main" . }}{{ end }}
+    </main>
+
+    <footer class="footer" itemscope itemtype="https://schema.org/WPFooter">
+      <form class="search" action="https://duckduckgo.com/" method="get">
+        <label for="search-input" hidden>Search</label>
+        <input id="search-input" type="text" name="q" />
+        <button type="submit">Search</button>
+        <input type="hidden" name="sites" value="{{ .Site.BaseURL }} " />
+      </form>
+      <small class="colophon">&copy;
+        {{ with .Site.Params.Copyright }}<time itemprop="copyrightYear" datetime="{{ . }}">{{ . }}</time>{{ end }}
+        <span itemprop="copyrightHolder"> {{ .Site.Params.Author }}</span>
+      </small>
+    </footer>
+  </body>
+</html>

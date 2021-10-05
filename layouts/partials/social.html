@@ -1,0 +1,5 @@
+<div class="social">
+  {{ if isset .Site.Params "github" }}<a class="i-github" rel="noopeneer noreferrer" target="_blank" href="//github.com/{{ .Site.Params.github }}" title="Github"><span hidden>Github</span></a>{{ end }}
+  {{ if isset .Site.Params "twitter" }}<a class="i-twitter" rel="noopeneer noreferrer" target="_blank" href="//twitter.com/{{ .Site.Params.twitter }}" title="Twitter"><span hidden>Twitter</span></a>{{ end }}
+  {{ if isset .Site.Params "linkedin" }}<a class="i-linkedin" rel="noopeneer noreferrer" target="_blank" href="//www.linkedin.com/in/{{ .Site.Params.linkedin }}/" title="LinkedIn"><span hidden>LinkedIn</span></a>{{ end }}
+</div>

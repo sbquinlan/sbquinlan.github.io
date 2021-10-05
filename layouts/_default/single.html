@@ -1,0 +1,18 @@
+{{ define "main" }}
+  <article class="post" itemscope itemtype="https://schema.org/CreativeWork">
+    <header class="post-header">
+      <h2 class="post-title" itemprop="name">{{ .Page.Title }}</h2>
+      <p class="post-meta">
+        <time class="dt-published" itemprop="datePublished" datetime="{{ .Page.Date.Format "2006-01-02T15:04:05-07:00" }}">
+          {{ .Page.Date.Format "Jan 2, 2006" }}
+        </time>
+      </p>
+    </header>
+    <div class="post-content" itemprop="text">
+      {{ .Content }}
+    </div>
+  </article>
+  <aside>
+    {{ .TableOfContents }}
+  </aside>
+{{ end }}

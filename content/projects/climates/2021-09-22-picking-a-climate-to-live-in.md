@@ -1,10 +1,9 @@
 ---
-layout:	post
 title:	"Picking a climate to live in"
-date:	Sep 22, 2021
+date: 2021-09-22
 ---
 
-  I’ve always lived in California with the exception of two brief years in London. There’s too much to say about living somewhere else; how it broadens your experiences and changed your views, but one aspect I find interesting is that it truly takes being somewhere for a few years to learn what a different climate is like.
+I’ve always lived in California with the exception of two brief years in London. There’s too much to say about living somewhere else; how it broadens your experiences and changed your views, but one aspect I find interesting is that it truly takes being somewhere for a few years to learn what a different climate is like.
 
 California is frequently credited, probably mostly by Californians, for having amazing weather. “It’s the Mediterranean climate,” my mom says. As always, she’s right, but my experience in the UK left me with some nagging thoughts around California’s unbeatable climate: If the climate here is so wonderful, why are the hills only green for 2 months out of the year before returning to kindling? This is especially bothersome in contrast to the UK where the greenery and water seems to be a constant year round.
 
@@ -12,7 +11,7 @@ So how is that possible? Well the immediate answer via Google is my mom’s of c
 
 I’m satisfied with this explanation, but I want a deeper understanding of how these differing climates breakdown worldwide without the previously mentioned requirement of having to live in each place for a number of years. So I’ve set out to create some sort of map to visualize this.
 
-#### Map + Data = GIS
+## Map + Data = GIS
 
 My very first guess at how to do this was to get averages of weather data tied to geographic areas and just plop that on a map to browse. I started by browsing what weather.com or Accuweather provide, but it was mostly forecast data and typically very expensive. 
 
@@ -22,7 +21,7 @@ There is no one or two or even three centralized government agencies with climat
 
 Climate Normals are defined as means of climate features (temperature, precipitation, etc) over a 30 year period. The US publishes many versions from it’s many agencies. The easiest to find is [NCEI’s normals](https://www.ncei.noaa.gov/products/land-based-station/us-climate-normals), which seems to only give you data from individual stations in the US. After a bit more browsing I see [a mention](https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00005) of a “gridded” [dataset called nClimGrid](https://www.drought.gov/data-maps-tools/gridded-climate-datasets-noaas-nclimgrid-monthly) that is created interpolating station readings across the US using a topographic and climatological to 5km. Gridded data over the US is a great start, but I want to do this world wide. I’ve at least learned what I’m searching for: “gridded climate normals.”
 
-#### Prior Art
+## Prior Art
 
 The search lands you infinitely better resources right off the bat: [ClimateEU](https://sites.ualberta.ca/~ahamann/data/climateeu.html) and [PRISM](https://prism.oregonstate.edu/normals/), both of which are essentially “PRISM” under the hood. What all these gridded datasets turn out to be is interpolated observations to a grid using a custom interpolation method. ClimateWNA, ClimateNA, ClimateEU, PRISM — these all use the same PRISM interpolation method which is an intelligent agent using what is called an “expert system” in AI made in Oregon. This interpolation method seems to be a significant improvement on the nClimGrid, which has its own multivariate interpolation. The PRISM interpolation seems superior to the nClimGrid just based on the resolution of the output. 
 
@@ -30,7 +29,7 @@ I spend some time reading through the research papers connected with Climate*. I
 
 Though the higher resolution (<1km grid) is an improvement, I feel like the piecemeal datasets of different continents using different file formats and sometimes requiring the PRISM program to be run, aren’t what I’m looking for. Searching through the papers that cite the PRISM work, I finally land on [WorldClim](https://www.worldclim.org/data/worldclim21.html) (on the way I spotted [other](https://psl.noaa.gov/data/gridded/data.UDel_AirT_Precip.html) [promising](https://data.giss.nasa.gov/gistemp/index_v3.html) [suspects](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land-monthly-means)).
 
-#### Searching for the Goal
+## Searching for the Goal
 
 For some reason, it wasn’t until this point, after reading several papers that I had the thought: “O, maybe somebody already mapped out climate regions.” And surely, the did, many many times. 
 
@@ -40,7 +39,7 @@ Both groups used WorldClim! The Köppen work used three other sources for climat
 
 While the Köppen group was obviously using the Köppen definitions of climate groups, the ArcGIS group was going for more than just climate groups. They were really going for specific biomes so land cover type is included, but along the way the used a different definition of climate regions called [IPCC guidelines](https://library.wur.nl/WebQuery/hydrotheek/1885455), not the Köppen.
 
-#### Summary
+## Summary
 
 This more or less gives me everything I need: possible methods of analysis and good sources of data. 
 

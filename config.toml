@@ -1,0 +1,13 @@
+baseURL = 'http://seanquinlan.com/'
+languageCode = 'en-us'
+title = 'Sean Quinlan'
+author = 'Sean Quinlan'
+disableHugoGeneratorInject = true
+enableRobotsTXT = true
+disableKinds = ['taxonomy', 'term']
+
+[params]
+  linkedin = 'squinlan'
+  github = 'sbquinlan'
+  author = 'Sean Quinlan'
+  copyright = 2021
